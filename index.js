@@ -15,8 +15,17 @@ db.once('open', function() {
   console.log("we're connected")
 });
 
-app.get("/item/retrieve/all", function (req, res) {
+app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname + '/index.html'));
+})
+
+app.get("/item/retrieve/all", function (req, res) {
+	console.log("done")
+	const test2 = async function(){
+		const elements = await items.getItems();
+		res.send(elements)
+	}
+	test2();
 })
 
 app.put("/item/create", function (req, res) {
@@ -28,13 +37,12 @@ app.put("/item/create", function (req, res) {
 			const count = await items.countItems();
 		   	console.log(count);
 		   	const data = {
-		   		ID: count+1,
 		       	item: store.item,
 		       	quantity: store.quantity,
 		      	priority: store.priority
 		   	}
 		   	await items.addPerson(data);
-		   	const p = await items.listPersons();
+		   	const p = await items.getItems();
 		   	console.log(p);
 		}
 		test2();
@@ -45,9 +53,9 @@ app.put("/item/create", function (req, res) {
 
 
 
-app.get("/item/retrieve/:id", function (req, res) {
+app.get("/item/retrieve/:item", function (req, res) {
 	const test = async function(){
-		const p = await items.findItem(req.params.id);
+		const p = await items.findItem(req.params.item);
 		console.log(p);
 	}
 	test();

@@ -24,7 +24,7 @@
     }
     .btn-xs {
         height: 35px;
-        width: 70px;
+        width: 100px;
         font-size: 12px;
     }
     .other {
@@ -35,6 +35,9 @@
     }
     .action {
         width: 40%-2px;
+    }
+    label {
+        font-size: 20px;
     }
     </style>
 </head>
@@ -95,12 +98,12 @@
                     <input type="text" id="fname" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="lname">Quantiy</label>
-                    <input type="text" id="lname" class="form-control" required>
+                    <label for="lname">Quantity</label>
+                    <input type="number" id="lname" class="form-control" placeholder="Accepts number" required>
                 </div>
                 <div class="form-group">
                     <label for="cyr">Priority</label>
-                    <input type="text" id="cyr" class="form-control"  required>
+                    <input type="number" id="cyr" class="form-control" placeholder="Accepts number"  required>
                 </div>
                 <center>
                     <br>
@@ -121,18 +124,14 @@
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
     <script>
-
         $(document).ready(function () {
             hideForm();
-            var id = 0;
+            var id = 1;
             var row = null;          
-
             $('body').bootstrapMaterialDesign();
-
             $("#create").click(function () {
                 showForm()
             });
-
             function showForm() {
                 $("input").val("");
                 $(".form").show();
@@ -141,20 +140,35 @@
             function hideForm() {
                 $(".form").hide();
                 $(".classList").show();  
-                // $(edit).hide();
-                // $(del).hide();  
             }
 
-            var edit = $("<button>",{
-                        class:"btn btn-success btn-xs update btn-outline-success",
-                                              
+            $.ajax({
+                type: "get",
+                url: "/item/retrieve/all",
+                success: function (response) {
+                    console.log("success")
+                    response.forEach( function (element) {
+                        var info = ["item", "quan", "priority"];  
+                        row = $("<tr>", {
+                            item: element.item,
+                            quan: element.quantity,
+                            priority: element.priority
+                        });
+                        $(row);
+                        for(let i = 0; i < info.length; i++) {
+                            if(i < 3) {
+                                $(row).append($("<td>").text($(row).attr(info[i])));
+                            }         
+                        }
+                        $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
+                        $("tbody").append($(row));
+                        hideForm();
                     })
-
-
-            var del = $("<button>",{
-                        class:"btn btn-success btn-xs del btn-outline-success",
-                              
-                    })
+                },
+                error: function (error) {
+                    console.log("error")
+                }
+            })
 
             $(".save").on("click", function (e) {
                 e.preventDefault();
@@ -162,7 +176,6 @@
                 var quan = $("#lname").val();
                 var priority = $("#cyr").val();
                 var info = ["item", "quan", "priority"];     
-
                 if (item == "" || quan == "" || priority == "") {
                     Swal.fire({
                         type: 'error',
@@ -170,57 +183,43 @@
                         text: 'All inputs is required!'
                     })
                 } else {
-
-                    row = $("<tr>", {
+                    row = $("<tr id="+id+">", {
                         item: item,
                         quan: quan,
                         priority: priority
                     });
-
-                    for(let i = 0; i < info.length; i++) {
-                        var col =$("<td>").text($(row).attr(info[i])).appendTo($(row));
-      
+                        $(row);
+                        for(let i = 0; i < info.length; i++) {
+                            if(i < 3) {
+                                $(row).append($("<td>").text($(row).attr(info[i])));
+                            }         
+                        }
+                        $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
+                        $("tbody").append($(row));
+                        hideForm();
                     }
-
-                    var action =$("<td>");
-                    $(row).append(action);
-                    $(action).append($(edit).text("Edit"));
-                    $(action).append($(del).text("Delete"));
-                    $("tbody").append($(row));
-                    hideForm();
-                }
-
-                $(row).on("click" , ".del", function(){
-          		 $(row).remove();
-       			});
-
-       			$(row).on("click" , ".update", function(){
-          		 showForm();
-       			});
-       
-            	// $(row).hover(function(event){
-            	// 	$(edit).show();
-             //        $(del).show();  
-             //      } , function(){
-             //        $(edit).hide();
-             //        $(del).hide();  
-                    	
-            	// });
-
+                })
                 
             });
-
             $(".close").click(function () {
-                hideForm();
+                $(".form").hide();
+                $(".classList").show();  
             })
-        });
+
+            $(".delete").on("click", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "delete",
+                    url: "/item/delete",
+                    // data: {item: }
+                })
+            })
         $(document).ready (function () { 
           $('#submit').on("click", function (e) {
                 e.preventDefault();
                 var item = $("#fname").val();
                 var quan = $("#lname").val();
                 var priority = $("#cyr").val();
-
                 if (item != "" && quan != "" && priority != "") {
                     Swal.fire({
                         type: "success",
