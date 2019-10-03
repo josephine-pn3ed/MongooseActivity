@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
+    <title>Grocery List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <style>
@@ -26,8 +27,11 @@
         width: 70px;
         font-size: 12px;
     }
+    .other {
+        width: 30%;
+    }
     .others {
-        width: 20%;
+        width: 15%;
     }
     .action {
         width: 40%-2px;
@@ -37,8 +41,8 @@
 
 <body>
     <div class="row classList">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 ">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 ">
             <br><br>
             <div class=" card">
                 <br>
@@ -50,14 +54,14 @@
                     <br>
                     <br>
                     <div class="container">
-                        <table id="table" class="table table-bordered">
+                        <table id="table" class="table table-bordered text-center">
                             <div class="text-center">
                                 <thead>
                                     <tr class="table-info">
-                                        <th class="others">Items</th>
-                                        <th class="others">Quantity</th>
-                                        <th class="others">Priority</th>
-                                        <th class="action">Action</th>
+                                        <th class="other text-center">Items</th>
+                                        <th class="others text-center">Quantity</th>
+                                        <th class="others text-center">Priority</th>
+                                        <th class="action text-center">Action</th>
                                     </tr>
                                 </thead>
 
@@ -85,30 +89,31 @@
             <div class="close">
                 <p>x</p>
             </div>
-            <div class="form-group">
-                <label for="fname">Item</label>
-                <input type="text" id="fname" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="lname">Quantiy</label>
-                <input type="text" id="lname" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="cyr">Priority</label>
-                <input type="text" id="cyr" class="form-control"  required>
-            </div>
-            <center>
-                <br>
-                <button type="submit" class="btn btn-primary save btn-outline-success" data-toggle="button"
-                    aria-pressed="false" autocomplete="off">
-                    Save
-                </button>
-            </center>
+            <form action="">
+                <div class="form-group">
+                    <label for="fname">Item</label>
+                    <input type="text" id="fname" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="lname">Quantiy</label>
+                    <input type="text" id="lname" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="cyr">Priority</label>
+                    <input type="text" id="cyr" class="form-control"  required>
+                </div>
+                <center>
+                    <br>
+                    <button type="submit" id="submit" class="btn btn-primary save btn-outline-success" data-toggle="button"
+                        aria-pressed="false" autocomplete="off">
+                        Save
+                    </button>
+                </center>
+            </form>
             <br>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
@@ -120,7 +125,8 @@
         $(document).ready(function () {
             hideForm();
             var id = 0;
-            var row = null;
+            var row = null;          
+
             $('body').bootstrapMaterialDesign();
 
             $("#create").click(function () {
@@ -135,29 +141,27 @@
             function hideForm() {
                 $(".form").hide();
                 $(".classList").show();  
-                $(edit).hide();
-                $(del).hide();  
+                // $(edit).hide();
+                // $(del).hide();  
             }
 
             var edit = $("<button>",{
                         class:"btn btn-success btn-xs update btn-outline-success",
-                        id: "btn_"+ id,     
                                               
                     })
 
 
             var del = $("<button>",{
                         class:"btn btn-success btn-xs del btn-outline-success",
-                        id: "btn_"+ id, 
                               
                     })
 
             $(".save").on("click", function (e) {
                 e.preventDefault();
-                var info = ["item", "quan", "priority"];               
                 var item = $("#fname").val();
                 var quan = $("#lname").val();
                 var priority = $("#cyr").val();
+                var info = ["item", "quan", "priority"];     
 
                 if (item == "" || quan == "" || priority == "") {
                     Swal.fire({
@@ -166,21 +170,6 @@
                         text: 'All inputs is required!'
                     })
                 } else {
-                    $.ajax({
-                    type: "put",
-                    url: "/item/create",
-                    crossDomain: true,
-                    data: JSON.stringify({ item: $("#fname").val(), quantity: $("#lname").val(), priority: $("#cyr").val() }),
-                    async: false
-                    success: function (response) {
-
-                        alert("Record saved successfully in database");
-                    },
-                    error: function () {
-
-                        alert("some problem in saving data");
-                    }
-                })
 
                     row = $("<tr>", {
                         item: item,
@@ -209,14 +198,14 @@
           		 showForm();
        			});
        
-            	$(row).hover(function(event){
-            		$(edit).show();
-                    $(del).show();  
-                  } , function(){
-                    $(edit).hide();
-                    $(del).hide();  
+            	// $(row).hover(function(event){
+            	// 	$(edit).show();
+             //        $(del).show();  
+             //      } , function(){
+             //        $(edit).hide();
+             //        $(del).hide();  
                     	
-            	});
+            	// });
 
                 
             });
@@ -224,6 +213,34 @@
             $(".close").click(function () {
                 hideForm();
             })
+        });
+        $(document).ready (function () { 
+          $('#submit').on("click", function (e) {
+                e.preventDefault();
+                var item = $("#fname").val();
+                var quan = $("#lname").val();
+                var priority = $("#cyr").val();
+
+                if (item != "" && quan != "" && priority != "") {
+                    Swal.fire({
+                        type: "success",
+                        title: 'SUCCESS',
+                        text: 'Successfully created!'
+                    })
+                    $.ajax({
+                        type: "put",
+                        url: "http://localhost:3000/item/create",
+                        crossDomain: true,
+                        data: JSON.stringify({ item: item, quantity: quan, priority: priority }),
+                        success: function (response) {
+                            console.log("response");
+                        },
+                        error: function (err){
+                            console.log('error');
+                        }
+                    })
+                }
+            });
         });
     </script>
 </body>
