@@ -155,14 +155,13 @@
                             priority: element.priority
                         });
                         $(row);
-                        for(let i = 0; i < info.length; i++) {
-                            if(i < 3) {
-                                $(row).append($("<td>").text($(row).attr(info[i])));
-                            }         
-                        }
+                                $(row).append($("<td id='1'>").text($(row).attr(info[0])));
+                                $(row).append($("<td id='1'>").text($(row).attr(info[1])));
+                                $(row).append($("<td id='1'>").text($(row).attr(info[2])));
                         $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
                         $("tbody").append($(row));
                         hideForm();
+                        id++;
                     })
                 },
                 error: function (error) {
@@ -183,20 +182,19 @@
                         text: 'All inputs is required!'
                     })
                 } else {
-                    row = $("<tr id="+id+">", {
+                    row = $("<tr id='"+id+"'>", {
                         item: item,
                         quan: quan,
                         priority: priority
                     });
                         $(row);
-                        for(let i = 0; i < info.length; i++) {
-                            if(i < 3) {
-                                $(row).append($("<td>").text($(row).attr(info[i])));
-                            }         
-                        }
+                        $(row).append($("<td id='1'>").text($(row).attr(info[0])));
+                        $(row).append($("<td id='1'>").text($(row).attr(info[1])));
+                        $(row).append($("<td id='1'>").text($(row).attr(info[2])));
                         $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
                         $("tbody").append($(row));
                         hideForm();
+                        id++;
                     }
                 })
                 
@@ -205,15 +203,43 @@
                 $(".form").hide();
                 $(".classList").show();  
             })
-
-            $(".delete").on("click", function (e) {
-                e.preventDefault();
+            $(document).on("click", ".update", function() {
+                $(".classList").hide();
+                $(".form").show();
+                $("#fname").val($(this).closest("tr").find("#1").text());
+                $("#lname").val($(this).closest("tr").find("#1").text());
+                $("#cyr").val($(this).closest("tr").find("#1").text());
                 $.ajax({
-                    type: "delete",
-                    url: "/item/delete",
-                    // data: {item: }
-                })
-            })
+                        type: "post",
+                        url: "http://localhost:3000/item/update",
+                        crossDomain: true,
+                        data: JSON.stringify({ item: $("#fname").val(), quantity: $("#lname").val(), priority: $("#cyr").val() }),
+                        success: function (response) {
+                            $(this).parents("tr").remove();
+
+                        },
+                        error: function (err){
+                            console.log('error');
+                        }
+                    })
+            });
+            
+
+            $("body").on("click", ".delete", function(){
+                    $(this).parents("tr").remove();
+                    $.ajax({
+                        type: "delete",
+                        url: "http://localhost:3000/item/delete",
+                        data: JSON.stringify({item : "sabon"}),
+                        success: function (response) {
+                            console.log("delete");
+                        },
+                        error: function (er) {
+                            console.log("error");
+                        }
+                    })
+                });
+
         $(document).ready (function () { 
           $('#submit').on("click", function (e) {
                 e.preventDefault();

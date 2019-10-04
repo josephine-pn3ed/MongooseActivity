@@ -5,13 +5,13 @@ var Schema = new mongoose.Schema({
    priority: {type: Number, required: true},
 });
 
-Schema.statics.addPerson = async function(person){
+Schema.statics.addPerson = async function (person){
    var Person = new this(person);
    var result =  await Person.save(person);
    return result;
 }
 
-Schema.statics.findItem = async function(item) {
+Schema.statics.findItem = async function (item) {
 	return await this.findOne({"item": item});
 }
 
@@ -21,6 +21,10 @@ Schema.statics.countItems = async function() {
 
 Schema.statics.getItems = async function() {
    return await this.find();
+}
+
+Schema.statics.deleteItem = async function (element) {
+   return await this.deleteOne({"item" : element});
 }
 
 module.exports = mongoose.model('person', Schema);

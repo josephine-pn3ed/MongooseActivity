@@ -65,9 +65,19 @@ app.post("/item/update", function (req, res) {
 
 })
 
-// app.del("/item/delete", function (req, res) {
+app.delete("/item/delete", function (req, res) {
+	req.on('data', function (req) {
+        store = JSON.parse(req);
+        res.send("success")
+		const test2 = async function(){
+		   	const p = await items.deleteItem(store.item);
+		   	console.log(p);
+		}
+		test2();
 
-// })
+    });
+    req.on('end', function () {})
+})
 
 app.listen(3000, function() {
 	console.log("Connected!")
