@@ -7,38 +7,46 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Grocery List</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <style>
-        .close{
-        font-size: 16px;
-    }
-    .close p{
-        float: right!important;
+        .close {
+            font-size: 16px;
+        }
 
-    }
-    .btn{
-        margin-right: 2px;
-        width:100px;
-        height: 45px;
-    }
-    .btn-xs {
-        height: 35px;
-        width: 100px;
-        font-size: 12px;
-    }
-    .other {
-        width: 30%;
-    }
-    .others {
-        width: 15%;
-    }
-    .action {
-        width: 40%-2px;
-    }
-    label {
-        font-size: 20px;
-    }
+        .close p {
+            float: right !important;
+
+        }
+
+        .btn {
+            margin-right: 2px;
+            width: 100px;
+            height: 45px;
+        }
+
+        .btn-xs {
+            height: 35px;
+            width: 100px;
+            font-size: 12px;
+        }
+
+        .other {
+            width: 30%;
+        }
+
+        .others {
+            width: 15%;
+        }
+
+        .action {
+            width: 40%-2px;
+        }
+
+        label {
+            font-size: 20px;
+        }
     </style>
 </head>
 
@@ -70,7 +78,7 @@
 
                                 <tbody id="body">
                                     <tr id="inform">
-                                        
+
                                     </tr>
 
                                 </tbody>
@@ -94,21 +102,21 @@
             </div>
             <form action="">
                 <div class="form-group">
-                    <label for="fname">Item</label>
-                    <input type="text" id="fname" class="form-control" required>
+                    <label for="iname">Item</label>
+                    <input type="text" id="item" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="lname">Quantity</label>
-                    <input type="number" id="lname" class="form-control" placeholder="Accepts number" required>
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" class="form-control" placeholder="Accepts number" required>
                 </div>
                 <div class="form-group">
-                    <label for="cyr">Priority</label>
-                    <input type="number" id="cyr" class="form-control" placeholder="Accepts number"  required>
+                    <label for="priority">Priority</label>
+                    <input type="number" id="priority" class="form-control" placeholder="Accepts number" required>
                 </div>
                 <center>
                     <br>
-                    <button type="submit" id="submit" class="btn btn-primary save btn-outline-success" data-toggle="button"
-                        aria-pressed="false" autocomplete="off">
+                    <button type="submit" id="submit" class="btn btn-primary save btn-outline-success"
+                        data-toggle="button" aria-pressed="false" autocomplete="off">
                         Save
                     </button>
                 </center>
@@ -116,155 +124,219 @@
             <br>
         </div>
     </div>
-    
+    <div class="form-update row">
+
+        <div class="col-md-4"></div>
+        <div class="col-md-4 card">
+            <br>
+            <br>
+            <div class="close">
+                <p>x</p>
+            </div>
+            <form action="">
+                <div class="form-group">
+                    <label for="iname">Item</label>
+                    <input type="text" id="update-item" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="update-quantity" class="form-control" placeholder="Accepts number"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <input type="number" id="update-priority" class="form-control" placeholder="Accepts number"
+                        required>
+                </div>
+                <center>
+                    <br>
+                    <button type="submit" class="btn btn-primary save-update btn-outline-success" data-toggle="button"
+                        aria-pressed="false" autocomplete="off">
+                        Update
+                    </button>
+                </center>
+            </form>
+            <br>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
         crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
+            var idUpdate;
             hideForm();
-            var id = 1;
-            var row = null;          
             $('body').bootstrapMaterialDesign();
             $("#create").click(function () {
                 showForm()
             });
             function showForm() {
-                $("input").val("");
                 $(".form").show();
+                $(".form-update").hide();
                 $(".classList").hide();
             }
             function hideForm() {
                 $(".form").hide();
-                $(".classList").show();  
+                $(".form-update").hide();
+                $(".classList").show();
+            }
+            function showUpdateForm() {
+                $(".form").hide();
+                $(".form-update").show();
+                $(".classList").hide();
+            }
+            function addRow(element) {
+                console.log("Adding row...")
+                var info = ["item", "quantity", "priority"];
+                var row = $("<tr>", {
+                    id: element._id,
+                    item: element.item,
+                    quantity: element.quantity,
+                    priority: element.priority
+                });
+                for (var i = 0; i < info.length; i++) {
+                    $(row).append($("<td>").text($(row).attr(info[i])));
+                }
+                $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
+                $("tbody").append($(row));
             }
 
-            $.ajax({
-                type: "get",
-                url: "/item/retrieve/all",
-                success: function (response) {
-                    console.log("success")
-                    response.forEach( function (element) {
-                        var info = ["item", "quan", "priority"];  
-                        row = $("<tr>", {
-                            item: element.item,
-                            quan: element.quantity,
-                            priority: element.priority
-                        });
-                        $(row);
-                                $(row).append($("<td id='1'>").text($(row).attr(info[0])));
-                                $(row).append($("<td id='1'>").text($(row).attr(info[1])));
-                                $(row).append($("<td id='1'>").text($(row).attr(info[2])));
-                        $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
-                        $("tbody").append($(row));
-                        hideForm();
-                        id++;
-                    })
-                },
-                error: function (error) {
-                    console.log("error")
-                }
-            })
-
-            $(".save").on("click", function (e) {
-                e.preventDefault();
-                var item = $("#fname").val();
-                var quan = $("#lname").val();
-                var priority = $("#cyr").val();
-                var info = ["item", "quan", "priority"];     
-                if (item == "" || quan == "" || priority == "") {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'All inputs is required!'
-                    })
-                } else {
-                    row = $("<tr id='"+id+"'>", {
-                        item: item,
-                        quan: quan,
-                        priority: priority
-                    });
-                        $(row);
-                        $(row).append($("<td id='1'>").text($(row).attr(info[0])));
-                        $(row).append($("<td id='1'>").text($(row).attr(info[1])));
-                        $(row).append($("<td id='1'>").text($(row).attr(info[2])));
-                        $(row).append("<td> <button class='btn btn-success btn-xs update btn-outline-success'>Update</button> <button class='btn btn-success btn-xs delete btn-outline-success'>Delete</button>");
-                        $("tbody").append($(row));
-                        hideForm();
-                        id++;
+            function retrieveItem(id) {
+                console.log(id);
+                $.ajax({
+                    type: "get",
+                    url: "/item/retrieve/" + id,
+                    success: function (response) {
+                        console.log(response)
+                        $('#update-item').val(response.item);
+                        $('#update-quantity').val(response.quantity);
+                        $('#update-priority').val(response.priority);
+                    },
+                    error: function (error) {
+                        console.log("error")
                     }
                 })
-                
-            });
-            $(".close").click(function () {
-                $(".form").hide();
-                $(".classList").show();  
-            })
-            $(document).on("click", ".update", function() {
-                $(".classList").hide();
-                $(".form").show();
-                $("#fname").val($(this).closest("tr").find("#1").text());
-                $("#lname").val($(this).closest("tr").find("#1").text());
-                $("#cyr").val($(this).closest("tr").find("#1").text());
+            }
+            function retrieveAll() {
+                $("tbody tr").remove();
                 $.ajax({
-                        type: "post",
-                        url: "http://localhost:3000/item/update",
-                        crossDomain: true,
-                        data: JSON.stringify({ item: $("#fname").val(), quantity: $("#lname").val(), priority: $("#cyr").val() }),
-                        success: function (response) {
-                            $(this).parents("tr").remove();
+                    type: "get",
+                    url: "/item/retrieve/all",
+                    success: function (response) {
+                        console.log("success")
+                        response.forEach(function (element) {
+                            addRow(element);
+                        })
+                    },
+                    error: function (error) {
+                        console.log("error")
+                    }
+                })
+            }
 
-                        },
-                        error: function (err){
-                            console.log('error');
-                        }
-                    })
-            });
-            
+            retrieveAll();
 
-            $("body").on("click", ".delete", function(){
-                    $(this).parents("tr").remove();
-                    $.ajax({
-                        type: "delete",
-                        url: "http://localhost:3000/item/delete",
-                        data: JSON.stringify({item : "sabon"}),
-                        success: function (response) {
-                            console.log("delete");
-                        },
-                        error: function (er) {
-                            console.log("error");
-                        }
-                    })
-                });
-
-        $(document).ready (function () { 
-          $('#submit').on("click", function (e) {
+            $('#submit').on("click", function (e) {
                 e.preventDefault();
-                var item = $("#fname").val();
-                var quan = $("#lname").val();
-                var priority = $("#cyr").val();
-                if (item != "" && quan != "" && priority != "") {
+                var item = $("#item").val();
+                var quantity = $("#quantity").val();
+                var priority = $("#priority").val();
+                if (item == "" || quantity == "" || priority == "") {
+                    Swal.fire({
+                        type: "error",
+                        title: 'ERROR',
+                        text: 'Please fill in all the requirements.'
+                    })
+                }
+                else if (item != "" && quantity != "" && priority != "") {
                     Swal.fire({
                         type: "success",
                         title: 'SUCCESS',
                         text: 'Successfully created!'
                     })
+                    hideForm();
                     $.ajax({
                         type: "put",
                         url: "http://localhost:3000/item/create",
                         crossDomain: true,
-                        data: JSON.stringify({ item: item, quantity: quan, priority: priority }),
+                        data: JSON.stringify({ item: item, quantity: quantity, priority: priority }),
                         success: function (response) {
-                            console.log("response");
+                            response.forEach(function (element) {
+                                addRow(element);
+                            })
                         },
-                        error: function (err){
+                        error: function (err) {
                             console.log('error');
                         }
                     })
                 }
+            });
+
+            $(".close").click(function () {
+                hideForm();
+            })
+
+            $(document).on("click", ".update", function () {
+                showUpdateForm();
+                idUpdate = $(this).parent().parent().attr("id");
+                retrieveItem($(this).parent().parent().attr("id"));
+
+                $(".save-update").on("click", function () {
+                    var item = $("#update-item").val();
+                    var quantity = $("#update-quantity").val();
+                    var priority = $("#update-priority").val();
+                    if (item == "" || quantity == "" || priority == "") {
+                        Swal.fire({
+                            type: "error",
+                            title: 'ERROR',
+                            text: 'Please fill in all the requirements.'
+                        })
+                    }
+                    else if (item != "" && quantity != "" && priority != "") {
+                        Swal.fire({
+                            type: "success",
+                            title: 'SUCCESS',
+                            text: 'Successfully updated!'
+                        })
+                        hideForm();
+                        console.log(idUpdate);
+                        $.ajax({
+                            type: "post",
+                            url: "http://localhost:3000/item/update",
+                            crossDomain: true,
+                            data: JSON.stringify({ id: idUpdate, item: item, quantity: quantity, priority: priority }),
+                            success: function (response) {
+                                retrieveAll();
+                            },
+                            error: function (err) {
+                                console.log('error');
+                            }
+                        })
+                    }
+                });
+            });
+
+
+            $(document).on("click", ".delete", function () {
+                var deleteid = $(this).parent().parent().attr("id");
+                $(this).parents("tr").remove();
+                $.ajax({
+                    type: "delete",
+                    url: "http://localhost:3000/item/delete",
+                    data: JSON.stringify({ id: deleteid }),
+                    success: function (response) {
+                        console.log("delete");
+                    },
+                    error: function (er) {
+                        console.log("error");
+                    }
+                })
             });
         });
     </script>

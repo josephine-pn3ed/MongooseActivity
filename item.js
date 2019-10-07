@@ -11,20 +11,24 @@ Schema.statics.addPerson = async function (person){
    return result;
 }
 
-Schema.statics.findItem = async function (item) {
-	return await this.findOne({"item": item});
-}
-
-Schema.statics.countItems = async function() {
-	return this.countDocuments();
+Schema.statics.findItem = async function (id) {
+	return await this.findOne({_id: id});
 }
 
 Schema.statics.getItems = async function() {
    return await this.find();
 }
 
-Schema.statics.deleteItem = async function (element) {
-   return await this.deleteOne({"item" : element});
+Schema.statics.getLastItem = async function() {
+   return await this.find().sort({_id:-1}).limit(1);
+}
+
+Schema.statics.updateItem = async function(id, newItem, newQuantity, newPriority) {
+   return await this.updateOne({_id: id},{$set: {item: newItem, quantity: newQuantity, priority: newPriority}});
+}
+
+Schema.statics.deleteItem = async function (id) {
+   return await this.deleteOne({_id: id});
 }
 
 module.exports = mongoose.model('person', Schema);
