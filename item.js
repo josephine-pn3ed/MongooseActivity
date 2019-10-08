@@ -30,20 +30,5 @@ Schema.statics.updateItem = async function(id, newItem, newQuantity, newPriority
 Schema.statics.deleteItem = async function (id) {
    return await this.deleteOne({_id: id});
 }
-Schema.statics.path('item').validate(function(value, respond) {
-   this.findOne({item: value}, function(err, user) {
-     if(err) throw err;
-     if(user) return respond(false);
-     respond(true);
-   });
- }, 'exists');
- 
- Schema.statics.path('quantity').validate(function(value, respond) {
-   this.findOne({quantity: value}, function(err, user) {
-     if(err) throw err;
-     if(user) return respond(false);
-     respond(true);
-   });
- }, 'exists');
 
 module.exports = mongoose.model('person', Schema);
