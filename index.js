@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express();
 const path = require("path");
-const items = require("./item");
+const test = require("./test");
 
 var mongoose = require('mongoose');
 
@@ -20,73 +20,23 @@ app.get("/", function (req, res) {
 })
 
 app.get("/item/retrieve/all", function (req, res) {
-	console.log("retrieving all...")
-	const test2 = async function () {
-		const elements = await items.getItems();
-		res.send(elements)
-	}
-	test2();
+	test.retrieveAll(res, req);
 })
 
 app.put("/item/create", function (req, res) {
-	console.log("creating...");
-	req.on('data', function (req) {
-		store = JSON.parse(req);
-		const test2 = async function () {
-			const data = {
-				item: store.item,
-				quantity: store.quantity,
-				priority: store.priority
-			}
-			await items.addPerson(data);
-			const item = await items.getLastItem();
-			res.send(item)
-		}
-		test2();
-	});
-	req.on('end', function () { })
+	test.create(req, res);
 })
 
-
-
 app.get("/item/retrieve/:id", function (req, res) {
-	console.log("retrieving...");
-	const test = async function () {
-		console.log(req.params.id)
-		const result = await items.findItem(req.params.id);
-		res.send(result);
-	}
-	test();
+	test.retrieveOne(req, res);
 })
 
 app.post("/item/update", function (req, res) {
-	console.log("updating...");
-	req.on('data', function (req) {
-		store = JSON.parse(req);
-		console.log(store.id);
-		const test = async function () {
-			const result = await items.updateItem(store.id, store.item, store.quantity, store.priority);
-			const updated = await items.findItem(store.id);
-			res.send(updated);
-		}
-		test();
-	})
-	req.on('end', function () { })
+	test.update(req, res);
 })
 
 app.delete("/item/delete", function (req, res) {
-	console.log("deleting...");
-	req.on('data', function (req) {
-		store = JSON.parse(req);
-		res.send("success")
-		const test2 = async function () {
-			const p = await items.deleteItem(store.id);
-			console.log(p);
-		}
-		test2();
-
-	});
-	req.on('end', function () { })
+	test.delete(req, res);
 })
 
 app.listen(3000, function () {
