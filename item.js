@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 var Schema = new mongoose.Schema({
-   item: {type:String, required:true},
-   quantity: {type: Number, required: true},
-   priority: {type: Number, required: true},
+   customer: {type:String, required:true},
+   service: {type: String, required: true},
+   price: {type: Number, required: true}
 });
 
 Schema.statics.addPerson = async function (person){

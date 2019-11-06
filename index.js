@@ -6,7 +6,7 @@ const items = require("./item");
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/groceryList', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/salonList', { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => console.log('Now connected to MongoDB!'))
 	.catch(err => console.error('Something went wrong', err));
 
@@ -36,9 +36,9 @@ app.put("/item/create", function (req, res) {
 		store = JSON.parse(req);
 		const test2 = async function () {
 			const data = {
-				item: store.item,
-				quantity: store.quantity,
-				priority: store.priority
+				customer: store.customer,
+				service: store.service,
+				price: store.price
 			}
 			await items.addPerson(data);
 			const item = await items.getLastItem();
