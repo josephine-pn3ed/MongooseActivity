@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iSalon</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <style>
+        body {
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .classList {
+            opacity: .95;
+        }
+
+        .form {
+            opacity: .90;
+        }
+
+        .form-update {
+            opacity: .90;
+        }
+
+        .close {
+            font-size: 16px;
+        }
+
+        .close p {
+            float: right !important;
+
+        }
+
+        .btn {
+            margin-right: 2px;
+            width: 150px;
+            height: 45px;
+        }
+
+        .btn-xs {
+            height: 35px;
+            width: 100px;
+            font-size: 12px;
+        }
+
+        .pr {
+            width: 5px;
+        }
+
+        .other {
+            width: 20%;
+        }
+
+        .others {
+            width: 20%;
+        }
+
+        .action {
+            width: 35%-2px;
+        }
+
+        label {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body bakground="assets/bakground.jpg">
+    <div class="row classList">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 ">
+            <br><br>
+            <div class=" card">
+                <br>
+                <center>
+                    <button type="button" class="btn btn-success btn-outline-success" id="create" data-toggle="button"
+                        aria-pressed="false" autocomplete="off">
+                        add customerdgvfh
+                    </button>
+                    <br>
+                    <br>
+                    <div class="container">
+                        <table id="table" class="table table-sm table-primary table-striped table-bordered text-center">
+                            <div class="text-center">
+                                <thead>
+                                    <tr class="table-info thead-dark">
+                                        <th scope="col" class="pr text-center">Priority Number</th>
+                                        <th scope="col" class="other text-center">Customer</th>
+                                        <th scope="col" class="others text-center">Services</th>
+                                        <th scope="col" class="others text-center">Price</th>
+                                        <th scope="col" class="action text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body">
+                                    <tr id="inform">
+                                    </tr>
+                                </tbody>
+                        </table>
+                </center>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br><br>
+    <div class="form row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 card">
+            <br>
+            <br>
+            <div class="close">
+                <p>x</p>
+            </div>
+            <form action="">
+                <div class="form-group">
+                    <label for="customer">Customer</label>
+                    <input type="text" id="customer" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="service">Services</label>
+                    <select class="form-control" id="service">
+                        <option value="none" selected>Select options</option>
+                        <option value="Hair Cut (Any length)">Hair Cut (Any length)</option>
+                        <option value="Blow Dry Style">Blow Dry Style</option>
+                        <option value="Base Color">Base Color</option>
+                        <option value="Base & Partial Color">Base & Partial Color</option>
+                        <option value="Base & Full Color">Base & Full Color</option>
+                        <option value="Partial Highlights Color">Partial Highlights Color</option>
+                        <option value="Full Hignlights Color">Full Hignlights Color</option>
+                        <option value="Brazilian Blow-out">Brazilian Blow-out</option>
+                    </select>
+                </div>
+                <center>
+                    <br>
+                    <button type="submit" id="submit" class="btn btn-primary save btn-outline-success"
+                        data-toggle="button" aria-pressed="false" autocomplete="off">
+                        Submit
+                    </button>
+                </center>
+            </form>
+            <br>
+        </div>
+    </div>
+    <div class="form-update row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 card">
+            <br>
+            <br>
+            <div class="close">
+                <p>x</p>
+            </div>
+            <form action="">
+                <div class="form-group">
+                    <label for="service">Service</label>
+                    <select class="form-control" id="update-service">
+                        <option value="none" selected>Select options</option>
+                        <option value="Hair Cut (Any length)">Hair Cut (Any length)</option>
+                        <option value="Blow Dry Style">Blow Dry Style</option>
+                        <option value="Base Color">Base Color</option>
+                        <option value="Base & Partial Color">Base & Partial Color</option>
+                        <option value="Base & Full Color">Base & Full Color</option>
+                        <option value="Partial Highlights Color">Partial Highlights Color</option>
+                        <option value="Full Hignlights Color">Full Hignlights Color</option>
+                        <option value="Brazilian Blow-out">Brazilian Blow-out</option>
+                    </select>
+                </div>
+                <center>
+                    <br>
+                    <button type="submit" class="btn btn-primary save-update btn-outline-success" data-toggle="button"
+                        aria-pressed="false" autocomplete="off">
+                        Update
+                    </button>
+                </center>
+            </form>
+            <br>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            var idUpdate, deleteid;
+            var priority = 1;
+            var age, service, customer;
+
+            hideForm();
+            $('body').bootstrapMaterialDesign();
+            $("#create").click(function () {
+                showForm()
+            });
+            function showForm() {
+                $(".form").show();
+                $(".form-update").hide();
+                $(".classList").hide();
+            }
+            function hideForm() {
+                $(".form").hide();
+                $(".form-update").hide();
+                $(".classList").show();
+            }
+            function showUpdateForm() {
+                $(".form").hide();
+                $(".form-update").show();
+                $(".classList").hide();
+            }
+            function addRow(element) {
+                console.log("Adding row...")
+                var info = ["customer", "service", "price"];
+                var row = $("<tr>", {
+                    id: element._id,
+                    customer: element.customer,
+                    service: element.service,
+                    price: element.price
+                });
+                $(row).append("<th scope='col'>" + priority + "</td>")
+                for (var i = 0; i < info.length; i++) {
+                    $(row).append($("<td>").text($(row).attr(info[i])));
+                }
+                $(row).append("<td> <button type='button' class='btn btn-success btn-xs update btn-outline-success'>Change</button> <button type='button' class='btn btn-success btn-xs delete btn-outline-success'>Done</button>");
+                $("tbody").append($(row));
+                priority++;
+            }
+
+            function retrieveItem(id) {
+                console.log(id);
+                $.ajax({
+                    type: "get",
+                    url: "/item/retrieve/" + id,
+                    success: function (response) {
+                        console.log(response)
+                        $('#update-service').val(response.service);
+                        age = response.age;
+                    },
+                    error: function (error) {
+                        console.log("error")
+                    }
+                })
+            }
+
+            function retrieveAll() {
+                priority = 1;
+                $("tbody tr").remove();
+                $.ajax({
+                    type: "get",
+                    url: "/item/retrieve/all",
+                    success: function (response) {
+                        console.log("success")
+                        response.forEach(function (element) {
+                            addRow(element);
+                        })
+                    },
+                    error: function (error) {
+                        console.log("error")
+                    }
+                })
+            }
+
+            retrieveAll();
+
+            $('#submit').on("click", function (e) {
+                e.preventDefault();
+                customer = $("#customer").val();
+                age = $('#age').val();
+                service = $("#service").val();
+                price = 0;
+                if (customer == "" || service == "none") {
+                    Swal.fire({
+                        type: "error",
+                        title: 'ERROR',
+                        text: 'Please fill in all the requirements.'
+                    })
+                }
+                else if (customer != "" && service != "none") {
+                    hideForm();
+                    if (service == "Hair Cut (Any length)") { price = 99; }
+                    else if (service == "Blow Dry Style") { price = 99; }
+                    else if (service == "Base Color") { price = 249; }
+                    else if (service == "Base & Partial Color") { price = 299; }
+                    else if (service == "Base & Full Color") { price = 349; }
+                    else if (service == "Partial Highlights Color") { price = 249; }
+                    else if (service == "Full Highlights Color") { price = 299; }
+                    else if (service == "Brazilian Blow-out") { price = 499; }
+
+                    if (age >= 60) {
+                        price = (price * .80);
+                    }
+                    $.ajax({
+                        type: "put",
+                        url: "http://localhost:3000/item/create",
+                        crossDomain: true,
+                        data: JSON.stringify({ customer: customer, age: age, service: service, price: price }),
+                        success: function (response) {
+                            response.forEach(function (element) {
+                                addRow(element);
+                            })
+                            $('#customer').val('');
+                            $('#age').val('');
+
+                            Swal.fire({
+                                type: "success",
+                                title: 'SUCCESS',
+                                text: 'Successfully created!'
+                            })
+                        },
+                        error: function (err) {
+                            console.log('error');
+                        }
+                    })
+                }
+            });
+
+            $(".close").click(function () {
+                hideForm();
+            })
+
+            $(document).on("click", ".update", function () {
+                showUpdateForm();
+                idUpdate = $(this).parent().parent().attr("id");
+                retrieveItem($(this).parent().parent().attr("id"));
+
+                $(".save-update").on("click", function () {
+                    var customer = $("#update-customer").val();
+                    var service = $("#update-service").val();
+                    if (customer == "" || service == "") {
+                        Swal.fire({
+                            type: "error",
+                            title: 'ERROR',
+                            text: 'Please fill in all the requirements.'
+                        })
+                    }
+                    else if (customer != "" && service != "") {
+                        hideForm();
+
+                        if (service == "Hair Cut (Any length)") { price = 99; }
+                        else if (service == "Blow Dry Style") { price = 99; }
+                        else if (service == "Base Color") { price = 249; }
+                        else if (service == "Base & Partial Color") { price = 299; }
+                        else if (service == "Base & Full Color") { price = 349; }
+                        else if (service == "Partial Highlights Color") { price = 249; }
+                        else if (service == "Full Highlights Color") { price = 299; }
+                        else if (service == "Brazilian Blow-out") { price = 499; }
+
+                        if (age >= 60) {
+                            price = (price * .80);
+                        }
+
+                        console.log(idUpdate);
+                        $.ajax({
+                            type: "post",
+                            url: "http://localhost:3000/item/update",
+                            crossDomain: true,
+                            data: JSON.stringify({ id: idUpdate, service: service, price: price }),
+                            success: function (response) {
+                                retrieveAll();
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'SUCCESS',
+                                    text: 'Successfully updated!'
+                                })
+                            },
+                            error: function (err) {
+                                console.log('error');
+                            }
+                        })
+                    }
+                });
+            });
+
+
+            $(document).on("click", ".delete", function () {
+                deleteid = $(this).parent().parent().attr("id");
+                $(this).parents("tr").remove();
+                $.ajax({
+                    type: "delete",
+                    url: "http://localhost:3000/item/delete",
+                    data: JSON.stringify({ id: deleteid }),
+                    success: function (response) {
+                        retrieveAll();
+                        console.log("delete");
+                    },
+                    error: function (er) {
+                        console.log("error");
+                    }
+                })
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = new mongoose.Schema({
    customer: {type:String, required:true},
+   age: {type:String, required:true},
    service: {type: String, required: true},
    price: {type: Number, required: true}
 });
@@ -23,8 +24,13 @@ Schema.statics.getLastItem = async function() {
    return await this.find().sort({_id:-1}).limit(1);
 }
 
-Schema.statics.updateItem = async function(id, newItem, newQuantity, newPriority) {
-   return await this.updateOne({_id: id},{$set: {item: newItem, quantity: newQuantity, priority: newPriority}});
+Schema.statics.getByName = async function(name) {
+   return await this.find({customer: name});
+}
+
+
+Schema.statics.updateItem = async function(id, newService, newPrice) {
+   return await this.updateOne({_id: id},{$set: {service: newService, price: newPrice}});
 }
 
 Schema.statics.deleteItem = async function (id) {

@@ -35,14 +35,22 @@ app.put("/item/create", function (req, res) {
 	req.on('data', function (req) {
 		store = JSON.parse(req);
 		const test2 = async function () {
-			const data = {
-				customer: store.customer,
-				service: store.service,
-				price: store.price
+			const exist = await items.getByName(store.customer);
+			console.log(exist)
+			if (exist.length == 0) {
+				const data = {
+					customer: store.customer,
+					age : store.age,
+					service: store.service,
+					price: Number((store.price).toFixed(1))
+				}
+				await items.addPerson(data);
+				const item = await items.getLastItem();
+				res.send(item)
 			}
-			await items.addPerson(data);
-			const item = await items.getLastItem();
-			res.send(item)
+			else {
+				res.send("Customer existed!")
+			}
 		}
 		test2();
 	});
@@ -67,7 +75,7 @@ app.post("/item/update", function (req, res) {
 		store = JSON.parse(req);
 		console.log(store.id);
 		const test = async function () {
-			const result = await items.updateItem(store.id, store.item, store.quantity, store.priority);
+			const result = await items.updateItem(store.id, store.service, Number((store.price).toFixed(1)));
 			const updated = await items.findItem(store.id);
 			res.send(updated);
 		}
@@ -90,6 +98,8 @@ app.delete("/item/delete", function (req, res) {
 	});
 	req.on('end', function () { })
 })
+
+app.use(express.static('assets'));
 
 app.listen(3000, function () {
 	console.log("Connected!")
